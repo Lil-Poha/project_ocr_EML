@@ -218,3 +218,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Base-dataset
+data/raw/dataset/
+data/raw/teacher/
+data/processed/
