@@ -35,3 +35,6 @@ project_ocr_EML/
 **Обязательно к прочтению**
 
 https://habr.com/ru/articles/720614/ - Архитектура проекта
+
+https://www.youtube.com/watch?v=4hUT7B_knSA - Круто, про обработку изображений в различных слоях, там все ролики полезные
+
