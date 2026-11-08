@@ -1,5 +1,10 @@
 # Проект 
 
+## Запуск
+
+1.pip install -r requirements.txt
+2.python -m ml.data.prepare --height 32
+
 ## Задачи
 ### [Никита](https://github.com/nickvlasov1) - Данные и Dataset 
 - [ ] Скрипт сборки `labels.csv` (путь к картинке, текст) из Excel (`data/raw/teacher/`) и папок (`data/raw/dataset/32_1`, `32_2`, ...)
