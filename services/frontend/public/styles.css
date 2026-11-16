@@ -1,0 +1,433 @@
+/*
+ * Стиль «архив»: тёплый фон цвета бумаги, тёмные «чернила»,
+ * один акцент — приглушённый бордовый, как сургуч.
+ * Все цвета заданы переменными; тёмная тема переопределяет их ниже.
+ * Шрифты системные (без загрузки из интернета), все с кириллицей.
+ */
+
+:root {
+  --paper: #f6f1e7;
+  --surface: #fffdf8;
+  --surface-sunken: #efe8da;
+  --ink: #2b2620;
+  --ink-muted: #6d6458;
+  --rule: #ddd3c2;
+  --accent: #7a2e2e;
+  --accent-hover: #632424;
+  --accent-ink: #fffdf8;
+  --accent-soft: #f1e2dc;
+  --danger: #9b2c1f;
+  --danger-soft: #f8e4df;
+  --focus: #b5651d;
+
+  --font-serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --radius: 12px;
+  --shadow: 0 1px 2px rgb(60 40 20 / 6%), 0 8px 24px rgb(60 40 20 / 6%);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1b1915;
+    --surface: #24211c;
+    --surface-sunken: #1f1c18;
+    --ink: #ece5d8;
+    --ink-muted: #a89f90;
+    --rule: #3a352d;
+    --accent: #d08a7a;
+    --accent-hover: #e09d8e;
+    --accent-ink: #1b1915;
+    --accent-soft: #3a2723;
+    --danger: #f0a090;
+    --danger-soft: #3a2420;
+    --focus: #e0a060;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 8px 24px rgb(0 0 0 / 25%);
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.page {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 48px 16px 32px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* ---------- Шапка ---------- */
+
+.masthead {
+  margin-bottom: 32px;
+  max-width: 640px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(30px, 5vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.lede {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 17px;
+}
+
+/* ---------- Карточки ---------- */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Зона загрузки ---------- */
+
+.upload {
+  padding: 8px;
+}
+
+.dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 48px 24px;
+  border: 1.5px dashed var(--rule);
+  border-radius: calc(var(--radius) - 4px);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.dropzone:hover,
+.dropzone.is-dragover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Клавиатурный фокус на скрытом input подсвечивает всю зону */
+.upload:focus-within .dropzone {
+  border-color: var(--accent);
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.upload .alert {
+  margin: 8px 0 0;
+}
+
+.dropzone__icon {
+  width: 48px;
+  height: 48px;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.dropzone__title {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.dropzone__text {
+  color: var(--ink-muted);
+}
+
+.link-like {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.dropzone__hint {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* ---------- Рабочая область: превью + результат ---------- */
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+}
+
+.panel {
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 28px;
+}
+
+.panel__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.panel__meta {
+  font-size: 13px;
+  color: var(--ink-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview {
+  flex: 1;
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  padding: 12px;
+  background: var(--surface-sunken);
+  border-radius: 8px;
+}
+
+.preview img {
+  display: block;
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.preview__fallback {
+  margin: 0;
+  color: var(--ink-muted);
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ---------- Результат ---------- */
+
+.badge {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: help;
+}
+
+.result {
+  flex: 1;
+  min-height: 160px;
+  padding: 18px 20px;
+  border-radius: 8px;
+  background: var(--surface-sunken);
+  /* Едва заметные линейки, как в тетради */
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    var(--rule) 31px,
+    var(--rule) 32px
+  );
+  background-position: 0 14px;
+}
+
+.result__placeholder,
+.result__loading {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.result__loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.result__text {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 32px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.result__note {
+  margin: 16px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--rule);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2.4s;
+  }
+}
+
+.alert {
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 14px;
+}
+
+/* ---------- Кнопки ---------- */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn {
+  appearance: none;
+  padding: 10px 18px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn:hover {
+  border-color: var(--ink-muted);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.btn--primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  background: transparent;
+  color: var(--ink-muted);
+}
+
+.btn--ghost:hover {
+  color: var(--ink);
+  border-color: transparent;
+}
+
+/* ---------- Подвал ---------- */
+
+.footer {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--ink-muted);
+}
+
+/* ---------- Телефоны: блоки друг под другом ---------- */
+
+@media (max-width: 760px) {
+  .page {
+    padding-top: 28px;
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dropzone {
+    padding: 36px 16px;
+  }
+}
