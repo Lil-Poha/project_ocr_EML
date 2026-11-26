@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Распознавание рукописей</title>
+  <meta name="description" content="Распознавание рукописного текста исторических документов">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <p class="eyebrow">Учебный проект · OCR</p>
+      <h1>Распознавание рукописей</h1>
+      <p class="lede">
+        Загрузите фото строки исторического документа — сервис переведёт
+        рукописный текст в печатный.
+      </p>
+    </header>
+
+    <main>
+      <!-- Шаг 1. Выбор файла. Весь блок — это label, поэтому клик по нему открывает выбор файла -->
+      <section id="upload" class="card upload" aria-labelledby="upload-title">
+        <label class="dropzone" id="dropzone" for="file-input">
+          <svg class="dropzone__icon" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M12 6h17l9 9v27H12z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M29 6v9h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M18 25c2-2 3.5-2 5 0s3 2 5 0 3.5-2 4 0M18 32c2-2 3.5-2 5 0s3 2 5 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          <span class="dropzone__title" id="upload-title">Перетащите фото сюда</span>
+          <span class="dropzone__text">или <span class="link-like">выберите файл</span> на компьютере</span>
+          <span class="dropzone__hint">JPEG, PNG, TIFF, BMP или WebP · до 10 МБ</span>
+        </label>
+        <input id="file-input" class="visually-hidden" type="file"
+               accept="image/jpeg,image/png,image/tiff,image/bmp,image/webp">
+        <p id="upload-error" class="alert" role="alert" hidden></p>
+      </section>
+
+      <!-- Шаг 2. Превью и результат. Скрыт, пока файл не выбран -->
+      <section id="workspace" class="workspace" hidden>
+        <figure class="card panel">
+          <figcaption class="panel__head">
+            <span class="panel__title">Оригинал</span>
+            <span class="panel__meta" id="file-meta"></span>
+          </figcaption>
+          <div class="preview">
+            <img id="preview-image" alt="Загруженный документ">
+            <p id="preview-fallback" class="preview__fallback" hidden>
+              Браузер не умеет показывать этот формат, но распознать его можно.
+            </p>
+          </div>
+        </figure>
+
+        <section class="card panel" aria-labelledby="result-title">
+          <div class="panel__head">
+            <h2 class="panel__title" id="result-title">Распознанный текст</h2>
+            <span id="demo-badge" class="badge" hidden
+                  title="Сервис отвечает фиксированным текстом: обученная модель ещё не подключена">
+              Демо-режим
+            </span>
+          </div>
+
+          <div class="result" aria-live="polite" aria-busy="false" id="result-box">
+            <p id="result-placeholder" class="result__placeholder">
+              Нажмите «Распознать», чтобы получить текст.
+            </p>
+            <div id="result-loading" class="result__loading" hidden>
+              <span class="spinner" aria-hidden="true"></span> Распознаём…
+            </div>
+            <p id="result-text" class="result__text" hidden></p>
+            <p id="demo-note" class="result__note" hidden>
+              Это ответ заглушки: модель пока не подключена, поэтому текст
+              всегда одинаковый и не зависит от фото.
+            </p>
+          </div>
+
+          <div id="error" class="alert" role="alert" hidden></div>
+
+          <div class="actions">
+            <button id="recognize-btn" class="btn btn--primary" type="button">Распознать</button>
+            <button id="copy-btn" class="btn" type="button" hidden>Копировать</button>
+            <button id="reset-btn" class="btn btn--ghost" type="button">Другое фото</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Команда EML · сервис распознавания: <span id="model-name">—</span>
+    </footer>
+  </div>
+</body>
+</html>
