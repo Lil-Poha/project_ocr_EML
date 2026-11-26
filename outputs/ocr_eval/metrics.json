@@ -1,0 +1,11 @@
+{
+    "model": "kazars24/trocr-base-handwritten-ru",
+    "split": "all",
+    "device": "cuda",
+    "total_rows_in_split": 1699,
+    "processed_images": 1699,
+    "skipped_images": 0,
+    "CER": 0.31380609797875986,
+    "WER": 0.6910880262438491,
+    "exact_match_accuracy": 0.34902884049440847
+}
